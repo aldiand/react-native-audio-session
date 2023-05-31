@@ -10,7 +10,8 @@ const AudioSession = {
   setActive: noAndroid,
   setCategory: noAndroid,
   setMode: noAndroid,
-  setCategoryAndMode: noAndroid
+  setCategoryAndMode: noAndroid,
+  setOverrideOutputAudioPort: noAndroid,
 }
 
 export default AudioSession

@@ -14,6 +14,7 @@
 static NSDictionary *_categories;
 static NSDictionary *_options;
 static NSDictionary *_modes;
+static NSDictionary *_ports;
 
 + (void)initialize {
     _categories = @{
@@ -42,6 +43,10 @@ static NSDictionary *_modes;
         @"Measurement": AVAudioSessionModeMeasurement,
         @"MoviePlayback": AVAudioSessionModeMoviePlayback,
         @"SpokenAudio": AVAudioSessionModeSpokenAudio
+    };
+    _ports = @{
+        @"Speaker": AVAudioSessionPortOverrideSpeaker,
+        @"None": AVAudioSessionPortOverrideNone
     };
 }
 
@@ -162,6 +167,28 @@ RCT_EXPORT_METHOD(setCategoryAndMode:(NSString *)category mode:(NSString *)mode 
                                    };
         NSError *error = [NSError errorWithDomain:@"RNAudioSession" code:-1 userInfo:userInfo];
         reject(@"setCategoryAndMode", @"Could not set category and mode.", error);
+    }
+}
+
+RCT_EXPORT_METHOD(setOverrideOutputAudioPort:(NSString *)port resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSUInteger* prt = _ports[port];
+    if (prt != nil) {
+        NSError *error = nil;
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:prt error:&error];
+        if (error) {
+            reject(@"setOverrideOutputAudioPort", @"Could not set override output audio port.", error);
+        } else {
+            resolve(@[]);
+        }
+    } else {
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: @"Could not set override output audio port.",
+                                   NSLocalizedFailureReasonErrorKey: @"The given port is not supported on this device.",
+                                   NSLocalizedRecoverySuggestionErrorKey: @"Try another port."
+                                   };
+        NSError *error = [NSError errorWithDomain:@"RNAudioSession" code:-1 userInfo:userInfo];
+        reject(@"setOverrideOutputAudioPort", @"Could not set override output audio port.", error);
     }
 }
 

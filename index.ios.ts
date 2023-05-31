@@ -29,6 +29,10 @@ export type AudioMode =
   | 'MoviePlayback'
   | 'SpokenAudio'
 
+export type AudioOutputPort =
+  | 'None'
+  | 'Speaker'
+
 const currentCategory = () =>
   new Promise<AudioCategory>((resolve, reject) => {
     RNAudioSession.category((category?: AudioCategory) => {
@@ -78,6 +82,10 @@ const setCategoryAndMode = (
   options?: AudioCategoryOptions
 ): Promise<void> => RNAudioSession.setCategoryAndMode(category, mode, options)
 
+const setOverrideOutputAudioPort = (
+  outputPort: AudioOutputPort
+): Promise<void> => RNAudioSession.setOverrideOutputAudioPort(outputPort)
+
 const AudioSession = {
   currentCategory,
   currentCategoryOptions,
@@ -85,7 +93,8 @@ const AudioSession = {
   setActive,
   setCategory,
   setMode,
-  setCategoryAndMode
+  setCategoryAndMode,
+  setOverrideOutputAudioPort
 }
 
 export default AudioSession
