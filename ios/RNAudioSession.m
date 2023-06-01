@@ -45,8 +45,8 @@ static NSDictionary *_ports;
         @"SpokenAudio": AVAudioSessionModeSpokenAudio
     };
     _ports = @{
-        @"Speaker": AVAudioSessionPortOverrideSpeaker,
-        @"None": AVAudioSessionPortOverrideNone
+        @"Speaker": [NSNumber numberWithInteger:AVAudioSessionPortOverrideSpeaker],
+        @"None": [NSNumber numberWithInteger:AVAudioSessionPortOverrideNone]
     };
 }
 
@@ -172,10 +172,10 @@ RCT_EXPORT_METHOD(setCategoryAndMode:(NSString *)category mode:(NSString *)mode 
 
 RCT_EXPORT_METHOD(setOverrideOutputAudioPort:(NSString *)port resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSUInteger* prt = _ports[port];
+    NSString* prt = _ports[port];
     if (prt != nil) {
         NSError *error = nil;
-        [[AVAudioSession sharedInstance] overrideOutputAudioPort:prt error:&error];
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:[prt integerValue] error:&error];
         if (error) {
             reject(@"setOverrideOutputAudioPort", @"Could not set override output audio port.", error);
         } else {

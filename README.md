@@ -1,21 +1,23 @@
-# react-native-audio-session
-[![npm version](https://img.shields.io/npm/v/react-native-audio-session.svg?style=flat)](https://www.npmjs.com/package/react-native-audio-session)
-[![npm downloads](https://img.shields.io/npm/dm/react-native-audio-session.svg?style=flat)](https://www.npmjs.com/package/react-native-audio-session)
+# @aldiand/react-native-audio-session
+[![npm version](https://img.shields.io/npm/v/@aldiand/react-native-audio-session.svg?style=flat)](https://www.npmjs.com/package/@aldiand/react-native-audio-session)
+[![npm downloads](https://img.shields.io/npm/dm/@aldiand/react-native-audio-session.svg?style=flat)](https://www.npmjs.com/package/@aldiand/react-native-audio-session)
 
 A React Native module for handling category, category options and mode on the [`AVAudioSession`](https://developer.apple.com/documentation/avfoundation/avaudiosession?language=objc) sharedInstance on iOS.
 
+fork from [react-native-audio-session](https://github.com/BonnierNews/react-native-audio-session)
+
 ## Getting started
 
-`$ yarn add react-native-audio-session`
+`$ yarn add @aldiand/react-native-audio-session`
 
 and then
 
-`$ react-native link react-native-audio-session`
+`$ react-native link @aldiand/react-native-audio-session`
 
 ## Usage
 
 ```javascript
-import AudioSession from 'react-native-audio-session'
+import AudioSession from '@aldiand/react-native-audio-session'
 
 // Set AVAudioSession active
 AudioSession.setActive(true)
@@ -72,6 +74,7 @@ AudioSession.currentMode().then(mode => {
 |currentCategory|-|`Promise<AudioCategory>`|Get the current AVAudioSession category [(Reference)](https://developer.apple.com/documentation/avfoundation/avaudiosession/1616615-category?language=objc).|
 |currentOptions|-|`Promise<AudioCategoryOptions>`|Get the current AVAudioSession options [(Reference)](https://developer.apple.com/documentation/avfoundation/avaudiosession/1616503-categoryoptions?language=objc).|
 |currentMode|-|`Promise<AudioMode>`|Get the current AVAudioSession mode [(Reference)](https://developer.apple.com/documentation/avfoundation/avaudiosession/1616508-mode?language=objc).|
+|setOverrideOutputAudioPort|`AudioOutputPortOverride`|`Promise<void>`|Set the current AVAudioSession override output audio port [(Reference)](https://developer.apple.com/documentation/avfaudio/avaudiosession/1616443-overrideoutputaudioport?language=objc).|
 
 ### Params
 #### AudioCategory
@@ -113,9 +116,17 @@ The `AudioMode` param to all methods. Corresponds to `AVAudioSessionMode` in iOS
 |`MoviePlayback`|`AVAudioSessionModeMoviePlayback`|
 |`SpokenAudio`|`AVAudioSessionModeSpokenAudio`|
 
+#### AudioOutputPortOverride
+The `AudioOutputPortOverride` param to all methods. Corresponds to `AVAudioSessionPortOverride` in iOS. Read more: [Audio Session Port Override (developer.apple.com)](https://developer.apple.com/documentation/avfoundation/avaudiosessionportoverride?language=objc)
+
+| Param | AVAudioSessionPortOverride |
+|---|---|
+|`None`|`AVAudioSessionPortOverrideNone`|
+|`Speaker`|`AVAudioSessionPortOverrideSpeaker`|
+
 ## Contributing
 
-If you find a bug or would like to request a new feature, just [open an issue](https://github.com/BonnierNews/react-native-audio-session/issues/new). You are also welcome to submit pull requests and contribute to the project.
+If you find a bug or would like to request a new feature, just [open an issue](https://github.com/aldiand/react-native-audio-session/issues/new). You are also welcome to submit pull requests and contribute to the project.
 
 ## License
 
